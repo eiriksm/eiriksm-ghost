@@ -5,8 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "NODE_ENV=production node index",
-    "install": "mkdir -p node_modules/ghost/core/built/assets && ln -s `pwd`/content/assets/* node_modules/ghost/core/built/assets/ && ln -s `pwd`/content/views/default.hbs node_modules/ghost/core/server/views/default.hbs"
+    "start": "NODE_ENV=production node index"
   },
   "repository": {
     "type": "git",
@@ -23,6 +22,7 @@
     "aws-sdk": "^2.1.18",
     "ghost": "git+https://github.com/TryGhost/Ghost",
     "mkdirp": "^0.5.0",
+    "ncp": "^2.0.0",
     "when": "^3.7.2"
   },
   "engines": {
