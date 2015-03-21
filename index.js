@@ -45,7 +45,7 @@ function startServer(callback) {
   });
 }
 
-async.series([startServer], function(err, res) {
+async.series([createBuiltDir, createSymlinks, startServer], function(err, res) {
   if (err) {
     throw err;
   }
