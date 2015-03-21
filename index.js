@@ -26,6 +26,7 @@ function createSymlinks(callback) {
       if (err && err.code !== 'EEXIST') {
         // We ignore this error, because it happens all the time in development.
         cb(err);
+        return;
       }
       cb();
     });
