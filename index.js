@@ -5,9 +5,7 @@ var fs = require('fs');
 var mkdirp = require('mkdirp');
 
 function createBuiltDir(callback) {
-  mkdirp(__dirname + '/node_modules/ghost/core/built', function(err) {
-    callback(err);
-  });
+  mkdirp(__dirname + '/node_modules/ghost/core/built', callback);
 }
 
 function createSymlinks(callback) {
@@ -47,7 +45,7 @@ function startServer(callback) {
   });
 }
 
-async.series([createBuiltDir, createSymlinks, startServer], function(err, res) {
+async.series([startServer], function(err, res) {
   if (err) {
     throw err;
   }

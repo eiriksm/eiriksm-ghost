@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "NODE_ENV=production node index"
+    "start": "NODE_ENV=production node index",
+    "install": "mkdir -p node_modules/ghost/core/built/assets && ln -s `pwd`/content/assets/* node_modules/ghost/core/built/assets/ && ln -s `pwd`/content/views/default.hbs node_modules/ghost/core/server/views/default.hbs"
   },
   "repository": {
     "type": "git",
