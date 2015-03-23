@@ -1,38 +1,5 @@
 var path = require('path');
 var ghost = require('ghost');
-var async = require('async');
-var mkdirp = require('mkdirp');
-var ncp = require('ncp').ncp;
-
-function createBuiltDir(callback) {
-  mkdirp(__dirname + '/node_modules/ghost/core/built/assets', callback);
-}
-
-function createSymlinks(callback) {
-  var items = [
-    {
-      src: __dirname + '/content/assets/',
-      dest: __dirname + '/node_modules/ghost/core/built/assets'
-    },
-    {
-      src: __dirname + '/content/views/default.hbs',
-      dest: __dirname + '/node_modules/ghost/core/server/views/default.hbs'
-    }
-  ];
-  function makeSymlink(item, cb) {
-    ncp(item.src, item.dest, function(err) {
-      if (err && err.code !== 'EEXIST') {
-        // We ignore this error, because it happens all the time in development.
-        cb(err);
-        return;
-      }
-      cb();
-    });
-  }
-  async.map(items, makeSymlink, function(err, res) {
-    callback(err);
-  });
-}
 
 function startServer(callback) {
   ghost({
@@ -45,8 +12,4 @@ function startServer(callback) {
   });
 }
 
-async.series([createBuiltDir, createSymlinks, startServer], function(err, res) {
-  if (err) {
-    throw err;
-  }
-});
+module.exports = startServer;
