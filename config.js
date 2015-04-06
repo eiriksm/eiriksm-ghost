@@ -14,8 +14,7 @@ var pgdb = {
     user: dbAuth[0],
     password: dbAuth[1],
     database: dbUrl.pathname.substring(1),
-    port: dbUrl.port,
-    ssl: true
+    port: dbUrl.port
   }
 }
 var s3 =  {
