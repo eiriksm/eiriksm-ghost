@@ -33,7 +33,7 @@ config = {
     // When running Ghost in the wild, use the production environment
     // Configure your URL and mail settings here
     production: {
-      url: 'https://eiriksm.me/'
+      url: 'https://eiriksm.me/',
       mail: {},
       database: pgdb,
 
