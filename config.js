@@ -33,20 +33,20 @@ config = {
     // When running Ghost in the wild, use the production environment
     // Configure your URL and mail settings here
     production: {
-        url: 'http://my-ghost-blog.com',
-        mail: {},
-        database: pgdb,
+      url: 'https://eiriksm.me/'
+      mail: {},
+      database: pgdb,
 
-        server: {
-            // Host to be passed to node's `net.Server#listen()`
-            host: process.env.OPENSHIFT_NODEJS_IP,
-            // Port to be passed to node's `net.Server#listen()`, for iisnode set this to `process.env.PORT`
-            port: process.env.PORT || '2368'
-        },
-        storage: s3,
-        paths: {
-          contentPath: path.join(__dirname, '/content/')
-        }
+      server: {
+          // Host to be passed to node's `net.Server#listen()`
+          host: process.env.OPENSHIFT_NODEJS_IP,
+          // Port to be passed to node's `net.Server#listen()`, for iisnode set this to `process.env.PORT`
+          port: process.env.PORT || '2368'
+      },
+      storage: s3,
+      paths: {
+        contentPath: path.join(__dirname, '/content/')
+      }
     },
 
     // ### Development **(default)**
