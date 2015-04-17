@@ -1,22 +1,5 @@
-// # Ghost Configuration
-// Setup your Ghost install for various environments
-// Documentation can be found at http://support.ghost.org/config/
+var path = require('path');
 
-var path = require('path'),
-    url = require('url'),
-    config;
-var dbUrl = url.parse(process.env.DATABASE_URL);
-var dbAuth = dbUrl.auth.split(':');
-var pgdb = {
-  client: 'postgres',
-  connection: {
-    host: dbUrl.hostname,
-    user: dbAuth[0],
-    password: dbAuth[1],
-    database: dbUrl.pathname.substring(1),
-    port: dbUrl.port
-  }
-}
 var s3 =  {
   active: 's3',
   s3: {
@@ -28,62 +11,42 @@ var s3 =  {
     }
   }
 }
-config = {
-    // ### Production
-    // When running Ghost in the wild, use the production environment
-    // Configure your URL and mail settings here
-    production: {
-      url: 'https://eiriksm.me/',
-      mail: {},
-      database: pgdb,
 
-      server: {
-          // Host to be passed to node's `net.Server#listen()`
-          host: process.env.OPENSHIFT_NODEJS_IP,
-          // Port to be passed to node's `net.Server#listen()`, for iisnode set this to `process.env.PORT`
-          port: process.env.PORT || '2368'
-      },
-      storage: s3,
-      paths: {
-        contentPath: path.join(__dirname, '/content/')
+module.exports = {  
+  production: {
+    url: 'http://'+process.env.OPENSHIFT_APP_DNS,
+    database: {
+      client: 'postgres',
+      connection: {
+        host: process.env.OPENSHIFT_POSTGRESQL_DB_HOST,
+        port: process.env.OPENSHIFT_POSTGRESQL_DB_PORT,
+        user: process.env.OPENSHIFT_POSTGRESQL_DB_USERNAME,
+        password: process.env.OPENSHIFT_POSTGRESQL_DB_PASSWORD,
+        database: process.env.OPENSHIFT_APP_NAME,
+        charset: 'utf8'
       }
     },
-
-    // ### Development **(default)**
-    development: {
-        // The url to use when providing links to the site, E.g. in RSS and email.
-        // Change this to your Ghost blogs published URL.
+    server: {
+      host: process.env.OPENSHIFT_NODEJS_IP,
+      port: process.env.OPENSHIFT_NODEJS_PORT
+    },
+  },
+  development: {
         url: 'http://localhost:2368',
-
-        // Example mail config
-        // Visit http://support.ghost.org/mail for instructions
-        // ```
-        //  mail: {
-        //      transport: 'SMTP',
-        //      options: {
-        //          service: 'Mailgun',
-        //          auth: {
-        //              user: '', // mailgun username
-        //              pass: ''  // mailgun password
-        //          }
-        //      }
-        //  },
-        // ```
-
-        database: pgdb,
+        database: {
+            client: 'sqlite3',
+            connection: {
+                filename: path.join(__dirname, '/content/data/ghost-dev.db')
+            },
+            debug: false
+        },
         server: {
-            // Host to be passed to node's `net.Server#listen()`
             host: '127.0.0.1',
-            // Port to be passed to node's `net.Server#listen()`, for iisnode set this to `process.env.PORT`
             port: '2368'
         },
-        storage: s3,
         paths: {
-          contentPath: path.join(__dirname, '/content/')
-        }
-    },
-
+            contentPath: path.join(__dirname, '/content/')
+        },
+        storage: s3
+    }
 };
-
-// Export config
-module.exports = config;
