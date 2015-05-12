@@ -18,9 +18,9 @@
   },
   "homepage": "https://github.com/eiriksm/eiriksm-ghost",
   "dependencies": {
-    "aws-sdk": "^2.1.18",
-    "ghost": "^0.6.0",
-    "when": "^3.7.2"
+    "aws-sdk": "^2.1.27",
+    "ghost": "^0.6.2",
+    "when": "^3.7.3"
   },
   "engines": {
     "node": "0.10"
