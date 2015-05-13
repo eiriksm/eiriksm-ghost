@@ -10,11 +10,11 @@ var s3 =  {
       region: process.env.AWS_REGION
     }
   }
-}
+};
 
-module.exports = {  
+module.exports = {
   production: {
-    url: 'http://'+process.env.OPENSHIFT_APP_DNS,
+    url: 'http://' + process.env.OPENSHIFT_APP_DNS,
     database: {
       client: 'postgres',
       connection: {
@@ -30,6 +30,18 @@ module.exports = {
       host: process.env.OPENSHIFT_NODEJS_IP,
       port: process.env.OPENSHIFT_NODEJS_PORT
     },
+    mail: {
+      transport: 'SMTP',
+      options: {
+        host: 'smtp.mandrillapp.org',
+        service: 'Mandrill',
+        port: 587,
+        auth: {
+          user: process.env.MANDRILL_USER,
+          pass: process.env.MANDRILL_KEY
+        }
+      }
+    }
   },
   development: {
         url: 'http://localhost:2368',
