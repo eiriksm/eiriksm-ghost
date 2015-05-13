@@ -33,7 +33,7 @@ module.exports = {
     mail: {
       transport: 'SMTP',
       options: {
-        host: 'smtp.mandrillapp.org',
+        host: 'smtp.mandrillapp.com',
         service: 'Mandrill',
         port: 587,
         auth: {
